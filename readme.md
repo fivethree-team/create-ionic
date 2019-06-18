@@ -5,4 +5,4 @@ Create an Ionic 4/Capacitor app by running one command. Including fastlane, auto
 
 Run `npm init @fivethree/ionic` to scaffold the project.
 
-[The starter project for this command]([https://link](https://github.com/fivethree-team/ionic4-capacitor-starter))
+[The starter project for this command](https://github.com/fivethree-team/ionic4-capacitor-starter)
