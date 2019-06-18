@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { App, Command, Hook, onStart, ParamOptions, isNonExistingPath, isString, param, afterAll, context, Context, usesPlugins } from "@fivethree/billy-core";
+import { App, Command, Hook, onStart, ParamOptions, isNonExistingPath, isString, param, usesPlugins, context, Context } from "@fivethree/billy-core";
 import { CorePlugin } from '@fivethree/billy-plugin-core';
 
 const name: ParamOptions = {
@@ -16,14 +16,16 @@ export class CreateIonic {
 
     @Hook(onStart)
     @Command('Clone and setup the fivethree ionic 4 capacitor starter')
-    async create(@param(name) n: string) {
-        this.git_clone('', n)
+    async create(@param(name) n: string, @context() ctx: Context) {
+        console.log('⏬ Cloning ionic4-capacitor-starter');
+        await this.git_clone('https://github.com/fivethree-team/ionic4-capacitor-starter', n);
+        await this.exec(`npm run --prefix ${n} init --name ${n}`, true);
     }
 
-    @Hook(afterAll)
-    afterAll(@context() ctx: Context) {
-        ctx.api.printHistory();
-    }
+    // @Hook(afterAll)
+    // afterAll(@context() ctx: Context) {
+    //     ctx.api.printHistory();
+    // }
 
 
 }

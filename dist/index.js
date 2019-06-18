@@ -22,6 +22,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const billy_core_1 = require("@fivethree/billy-core");
+const billy_plugin_core_1 = require("@fivethree/billy-plugin-core");
 const name = {
     name: 'name',
     description: 'What\'s the name of your app?',
@@ -29,29 +30,23 @@ const name = {
     validators: [billy_core_1.isString, billy_core_1.isNonExistingPath]
 };
 let CreateIonic = class CreateIonic {
-    create(n) {
+    create(n, ctx) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('⏬ Cloning ionic4-capacitor-starter');
+            yield this.git_clone('https://github.com/fivethree-team/ionic4-capacitor-starter', n);
+            yield this.exec(`npm run --prefix ${n} init --name ${n}`, true);
         });
-    }
-    afterAll(ctx) {
-        ctx.api.printHistory();
     }
 };
 __decorate([
+    billy_core_1.usesPlugins(billy_plugin_core_1.CorePlugin),
     billy_core_1.Hook(billy_core_1.onStart),
     billy_core_1.Command('Clone and setup the fivethree ionic 4 capacitor starter'),
-    __param(0, billy_core_1.param(name)),
+    __param(0, billy_core_1.param(name)), __param(1, billy_core_1.context()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], CreateIonic.prototype, "create", null);
-__decorate([
-    billy_core_1.Hook(billy_core_1.afterAll),
-    __param(0, billy_core_1.context()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], CreateIonic.prototype, "afterAll", null);
 CreateIonic = __decorate([
     billy_core_1.App()
 ], CreateIonic);
